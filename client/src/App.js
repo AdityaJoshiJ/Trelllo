@@ -17,10 +17,14 @@ import './App.css';
 
 import axios from 'axios';
 
+console.log('REACT_APP_API_BASE_URL is:', process.env.REACT_APP_API_BASE_URL);
+
 // Set Axios Base URL from environment variable if present
 if (process.env.REACT_APP_API_BASE_URL) {
   axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
 }
+
+console.log('Axios defaults baseURL set to:', axios.defaults.baseURL);
 
 // Intercept HTML responses from API requests (like routing fallback in Vercel)
 axios.interceptors.response.use(
