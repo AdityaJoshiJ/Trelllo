@@ -44,7 +44,7 @@ export default function (state = initialState, action) {
     case GET_BOARDS:
       return {
         ...state,
-        boards: payload,
+        boards: Array.isArray(payload) ? payload : [],
         dashboardLoading: false,
       };
     case RENAME_BOARD:

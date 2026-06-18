@@ -15,6 +15,27 @@ import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
 
+import axios from 'axios';
+
+// Set Axios Base URL from environment variable if present
+if (process.env.REACT_APP_API_BASE_URL) {
+  axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+}
+
+// Intercept HTML responses from API requests (like routing fallback in Vercel)
+axios.interceptors.response.use(
+  (response) => {
+    const contentType = response.headers['content-type'];
+    if (contentType && contentType.includes('text/html')) {
+      return Promise.reject(new Error('Expected JSON response, but received HTML.'));
+    }
+    return response;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }

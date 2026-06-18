@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './alert';
+
 import {
   CLEAR_BOARD,
   GET_BOARDS,
@@ -27,6 +28,11 @@ import {
   DELETE_CHECKLIST_ITEM,
 } from './types';
 
+const getErrorPayload = (err) => ({
+  msg: err.response && err.response.statusText ? err.response.statusText : err.message,
+  status: err.response && err.response.status ? err.response.status : 500,
+});
+
 const config = {
   headers: {
     'Content-Type': 'application/json',
@@ -47,7 +53,7 @@ export const getBoards = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -70,7 +76,7 @@ export const getBoard = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -93,7 +99,7 @@ export const addBoard = (formData, history) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -112,7 +118,7 @@ export const renameBoard = (boardId, formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -129,7 +135,7 @@ export const getList = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -150,7 +156,7 @@ export const addList = (formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -167,7 +173,7 @@ export const renameList = (listId, formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -186,7 +192,7 @@ export const archiveList = (listId, archive) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -203,7 +209,7 @@ export const getCard = (id) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -224,7 +230,7 @@ export const addCard = (formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -241,7 +247,7 @@ export const editCard = (cardId, formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -262,7 +268,7 @@ export const moveCard = (cardId, formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -281,7 +287,7 @@ export const archiveCard = (cardId, archive) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -300,7 +306,7 @@ export const deleteCard = (listId, cardId) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -319,7 +325,7 @@ export const getActivity = () => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -338,7 +344,7 @@ export const addMember = (userId) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -357,7 +363,7 @@ export const moveList = (listId, formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -378,7 +384,7 @@ export const addCardMember = (formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -397,7 +403,7 @@ export const addChecklistItem = (cardId, formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -416,7 +422,7 @@ export const editChecklistItem = (cardId, itemId, formData) => async (dispatch) 
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -435,7 +441,7 @@ export const completeChecklistItem = (formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
@@ -452,7 +458,7 @@ export const deleteChecklistItem = (cardId, itemId) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: getErrorPayload(err),
     });
   }
 };
